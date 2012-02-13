@@ -1,3 +1,4 @@
 conf.js
 .monitor
 pids/*
+frontend/js/custom/*
