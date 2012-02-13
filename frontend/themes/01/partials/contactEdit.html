@@ -1,0 +1,43 @@
+<form class="form form-horizontal">
+    <div class="control-group">
+        <label class="control-label" for="name">{{'Name'|i18n}}</label>
+        <div class="controls">
+            <input type="text" name="contact.name" id="name" class="input-xlarge" ng:required />
+        </div>
+    </div>
+     <div class="control-group">
+         <label class="control-label" for="phone">{{'Phone'|i18n}}</label>
+         <div class="controls">
+             <input type="text" name="contact.phone" id="phone" class="input-xlarge" />
+         </div>
+     </div>
+      <div class="control-group">
+          <label class="control-label" for="email">{{'EMail'|i18n}}</label>
+          <div class="controls">
+              <input type="text" name="contact.email" id="email" class="input-xlarge" />
+          </div>
+      </div>
+      <div class="control-group">
+          <label class="control-label" for="assembly">{{'Assembly'|i18n}}</label>
+          <div class="controls">
+              <input type="text" name="contact.assembly" id="assembly" class="input-xlarge" />
+          </div>
+      </div>
+      <div class="control-group">
+          <label class="control-label" for="note">{{'Note'|i18n}}</label>
+          <div class="controls">
+              <textarea name="contact.note" id="note" class="input-xlarge"></textarea>
+          </div>
+      </div>
+      <div class="control-group">
+          <label class="control-label" for="active">{{'Active'|i18n}}</label>
+          <div class="controls">
+              <input type="checkbox" name="contact.active" id="active" class="input-xlarge" ng:checked="contact.active" />
+              <p class="help-block">{{'Inactive contacts will not be shown in suggestion lists.'|i18n}}</p>
+          </div>
+      </div>
+      <div class="form-actions">
+        <a ng:click="cancelEdit()" href="javascript:void(0);" class="btn btn-danger">{{'Cancel'|i18n}}</a>
+        <a ng:click="saveContact(contact)" href="javascript:void(0);" class="btn btn-primary">{{'Save'|i18n}}</a>
+    </div>
+</form>

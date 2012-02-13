@@ -1,0 +1,62 @@
+    <div style="display:none;">
+        <div id="territory-info">
+            <ul class="structure-list">
+                <li><label>{{'Name'|i18n}}:</label> {{selectedTerritory.ident}} </li>
+                <li ng:show="selectedTerritory.city"><label>{{'City'|i18n}}:</label> {{selectedTerritory.city}} </li>
+                <li ng:show="selectedTerritory.population"><label>{{'Population'|i18n}}:</label> {{selectedTerritory.population}} </li>
+                <li ng:show="selectedTerritory.map_url"><label>{{'Map'|i18n}}:</label> <a href="{{selectedTerritory.map_url}}" target="_blank">{{'Link'|i18n}}</a> </li>
+                <li ng:show="selectedTerritory.map_image"><label>{{'Map'|i18n}}:</label> {{selectedTerritory.map_image}} </li>
+                <li><label>{{'last processed at'|i18n}}:</label> {{selectedTerritory.last_processed_at|i18nDate}} </li>
+                <li ng:show="selectedTerritory.note"><label>{{'Note'|i18n}}:</label> <div>{{selectedTerritory.note|nl2br}}<div> </li>
+                <li ng:show="selectedTerritory.language"><label>{{'Language'|i18n}}:</label> {{selectedTerritory.language}} </li>
+                <li ng:show="selectedTerritory.country"><label>{{'Country'|i18n}}:</label> {{selectedTerritory.country}} </li>
+                <li ng:show="selectedTerritory.state"><label>{{'State'|i18n}}:</label> {{selectedTerritory.state}} </li>
+                <li><label>{{'Streets'|i18n}}</label>
+                    <ul class="structure-list">
+                        <li ng:repeat="street in selectedTerritory.streets.$orderBy('name')">{{street.name}}</li>
+                    </ul>
+                </li>
+            </ul>
+            <button name="{{'History'|i18n}}" my:dialog="show('territory-history',{modal:false, width: 550, height: 400})">{{'History'|i18n}}</button>
+        </div>
+    </div>
+
+    <div style="display:none;">
+        <div id="territory-history">
+            <ul>
+                <li ng:repeat="item in selectedTerritory.history.$orderBy('created_at',true)">{{item.created_at|i18nDate:true}}: {{item.event_text}}</li>
+            </ul>
+        </div>
+    </div>
+
+
+<!-- // BEGIN content  -->
+
+<table id="table-territories" class="table">
+    <thead>
+        <tr>
+            <th ng:bind="'Territory No.'|i18n"></th>
+            <th ng:bind="'City'|i18n"></th>
+            <th ng:bind="'Given to'|i18n"></th>
+            <th ng:bind="'since'|i18n"></th>
+            <th ng:bind="'last processed at'|i18n"></th>
+            <th ng:bind="'action'|i18n"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng:repeat="territory in territories" ng:class-even="even" ng:class-odd="odd">
+            <td>{{territory.ident}}</td>
+            <td>{{territory.city}}</td>
+            <td><span ng:hide="territory.contact.name">-- {{'in the box'|i18n}} --</span>{{territory.contact.name}}</td>
+            <td>{{territory.status_changed_at|i18nDate}}</td>
+            <td>{{territory.last_processed_at|i18nDate}}</td>
+            <td>
+                <button class="btn btn-primary" name="{{'Info'|i18n}}" ng:click="showTerritoryInfo(territory)" my:dialog="show('territory-info',{modal:true})">{{'info'|i18n}}</button>
+                <button class="btn" ng:click="editTerritory(territory)">{{'edit'|i18n}}</button>
+                <button class="btn btn-success" ng:show="territory.contact.name" ng:click="processed(territory)" ng:bind="'processed'|i18n"></button>
+                <button class="btn" ng:hide="territory.contact.name" ng:click="give(territory)">{{'give'|i18n}}</button>
+                <button class="btn" ng:show="territory.contact.name" ng:click="getBack(territory)">{{'get back'|i18n}}</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

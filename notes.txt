@@ -1,0 +1,5 @@
+TODO
+- Filter in Tables soll erhalten bleiben auch nach bearbeiten/rückgabe des Gebietes
+- "geändert aber ungespeichert" visualisieren, wichtig z. B. bei den Tabs in der Edit-Maske für ein Gebiet
+- Löschen Buttons mit Rückfrage versehen
+- Formularvalidierung optimieren/prüfen

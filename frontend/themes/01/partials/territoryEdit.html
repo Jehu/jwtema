@@ -1,0 +1,194 @@
+<div class="territory-edit" my:tabs>
+    <div class="block-header">
+        <ul class="tabs">
+            <li class="active"><a href="#tab-1">{{'Territory'|i18n}}</a></li>
+            <li ng:show="territory._id" class=""><a href="#tab-2">{{'Streets'|i18n}}</a></li>
+            <li ng:show="territory._id" class=""><a href="#tab-3">{{'Do not visit'|i18n}}</a></li>
+        </ul>
+    </div>
+    <div class="block-content tab-container">
+        <div id="tab-1" class="tab-content" style="display: block; ">
+            <form id="validate-form" class="form-horizontal">
+                <div class="control-group">
+                    <label class="control-label" for="textfield">{{'Name'|i18n}}</label>
+                    <div class="controls">
+                        <input id="textfield" name="territory.ident" class="input-xlarge" type="text" ng:required />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="city">{{'City'|i18n}}</label>
+                    <div class="controls">
+                        <input id="city" name="territory.city" class="input-xlarge" type="text" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="population">{{'Population'|i18n}}</label>
+                    <div class="controls">
+                        <input id="population" name="territory.population" class="input-xlarge" type="text" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="maplink">{{'Map'|i18n}} ({{'Link'|i18n}})</label>
+                    <div class="controls">
+                        <input id="maplink" name="territory.map_url" class="input-xlarge" type="text" />
+                    </div>
+                </div>
+                <!--div class="control-group">
+                    <label class="control-label" for="mapimage">{{'Map'|i18n}}</label>
+                    <div class="controls">
+                        <input id="textfield" name="territory.map_image" class="input-xlarge" type="text" />
+                    </div>
+                </div-->
+                <div class="control-group">
+                    <label class="control-label" for="lastprocessed">{{'last processed at'|i18n}}</label>
+                    <div class="controls">
+                        <input class="input-xlarge" id="lastprocessed" name="last_processed_at" type="text" my:datepicker />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="note">{{'Note'|i18n}}</label>
+                    <div class="controls">
+                        <textarea name="territory.note" class="input-xlarge"></textarea>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="textfield">{{'Country'|i18n}}</label>
+                    <div class="controls">
+                        <input type="text" my:autocomplete="countries" name="territory.country" class="input-xlarge" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="textfield">{{'State'|i18n}}</label>
+                    <div class="controls">
+                        <input type="text" my:autocomplete="states" name="territory.state" class="input-xlarge"/>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <a ng:click="delete(territory)" href="javascript:void(0);" class="btn">{{'Delete'|i18n}}</a>
+                    <a ng:click="cancelEdit()" href="javascript:void(0);" class="btn btn-danger">{{'Cancel'|i18n}}</a>
+                    <a ng:show="territory._id" ng:click="save(territory, true)" href="javascript:void(0);" class="btn btn-primary">{{'Save'|i18n}}</a>
+                    <a ng:hide="territory._id" ng:click="save(territory)" href="javascript:void(0);" class="btn btn-primary">{{'Save'|i18n}}</a>
+
+                </div>
+            </form>
+        </div>
+        <div id="tab-2" class="tab-content" style="display: none; ">
+            <form id="validate-form" class="form-horizontal" action="" method="post">
+                <div ng:show="territory.streets">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>{{'Street'|i18n}}</th>
+                                <th>{{'Numbers range'|i18n}}</th>
+                                <th>{{'Numbers even'|i18n}}</th>
+                                <th>{{'Numbers odd'|i18n}}</th>
+                                <th>{{'Action'|i18n}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng:repeat="item in territory.streets.$orderBy('name', false)" ng:click="selectStreet(item)">
+                                <td ng:bind="item.name"></td>
+                                <td ng:bind="item.numbers_range"></td>
+                                <td ng:bind="item.numbers_even"></td>
+                                <td ng:bind="item.numbers_odd"></td>
+                                <td><a class="btn btn-warning" ng:click="removeStreet(item)">{{'Delete'|i18n}}</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="control-group">
+                    <h3>{{'Add/Edit Street'|i18n}}</h3>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="streetname">{{'Street name'|i18n}}</label>
+                    <div class="controls">
+                        <input type="text" name="selectedStreet.name" id="streetname" class="input-xlarge" ng:required />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="numbersrange">{{'Numbers range'|i18n}}</label>
+                    <div class="controls">
+                        <input type="text" name="selectedStreet.numbers_range" id="numbersrange" class="input-xlarge" />
+                        <p class="help-block">{{'Range of housenumbers to be processed'|i18n}}</p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="numbers-even">{{'Numbers even'|i18n}}</label>
+                    <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" name="selectedStreet.numbers_even" id="numbers-even" class="input-small" />
+                        </label>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="numbers-odd">{{'Numbers odd'|i18n}}</label>
+                    <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" name="selectedStreet.numbers_odd" id="numbers-odd" class="input-small" />
+                        </label>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <a class="btn button" ng:click="[saveStreet(), save(territory)]" href="javascript:void(0);">{{'Apply'|i18n}}</a>
+                </div>
+            </form>
+        </div>
+        <div id="tab-3" class="tab-content" style="display: none; ">
+            <form id="validate-form" class="form-horizontal">
+                <div class="" ng:show="territory.donotvisit">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>{{'Street'|i18n}}</th>
+                                <th>{{'Number'|i18n}}</th>
+                                <th>{{'Name'|i18n}}</th>
+                                <th>{{'Date'|i18n}}</th>
+                                <th>{{'Action'|i18n}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng:repeat="item in territory.donotvisit.$orderBy(['street','number','name'], false)" ng:click="selectDoNotVisit(item)">
+                                <td>{{item.street}}</td>
+                                <td>{{item.number}}</td>
+                                <td>{{item.name}}</td>
+                                <td>{{item.date|i18nDate}}</td>
+                                <th><btn class="btn btn-warning" ng:click="removeDoNotVisit(item)">{{'Delete'|i18n}}</a>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="control-group">
+                    <h3>{{'Add/Edit Address'|i18n}}</h3>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="dnv-street">{{'Street'|i18n}}</label>
+                    <div class="controls">
+                        <input type="text" name="selectedDoNotVisit.street" id="dnv-street" class="input-xlarge" ng:required />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="dnv-name">{{'Name'|i18n}}</label>
+                    <div class="controls">
+                        <input type="text" name="selectedDoNotVisit.name" id="dnv-name" class="input-xlarge" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="dnv-number">{{'Number'|i18n}}</label>
+                    <div class="controls">
+                        <input type="text" name="selectedDoNotVisit.number" id="dnv-number" class="input-xlarge" ng:required />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="dnv-date">{{'Date'|i18n}}</label>
+                    <div class="controls">
+                        <input type="text" name="do_not_visit_date" id="dnv-date" class="input-xlarge" ng:required my:datepicker />
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <a class="btn" ng:click="[saveDoNotVisit(), save(territory)]" href="javascript:void(0);">{{'Apply'|i18n}}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

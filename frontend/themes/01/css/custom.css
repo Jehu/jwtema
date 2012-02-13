@@ -1,0 +1,85 @@
+/* Override some defaults */
+html, body {
+  background-color: #eee;
+}
+body {
+  padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
+}
+.container > footer p {
+  text-align: center; /* center align it with the container */
+}
+.container {
+  width: 820px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
+}
+
+/* The white background content wrapper */
+.container > .content {
+  background-color: #fff;
+  padding: 20px;
+  margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+  -webkit-border-radius: 0 0 6px 6px;
+     -moz-border-radius: 0 0 6px 6px;
+          border-radius: 0 0 6px 6px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+     -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+          box-shadow: 0 1px 2px rgba(0,0,0,.15);
+}
+
+/* Page header tweaks */
+.page-header {
+  background-color: #f5f5f5;
+  padding: 20px 20px 10px;
+  margin: -20px -20px 20px;
+}
+
+/* Give a quick and non-cross-browser friendly divider */
+.content .span4 {
+  margin-left: 0;
+  padding-left: 19px;
+  border-left: 1px solid #eee;
+}
+
+.topbar .btn {
+  border: 0;
+}
+
+.DataTables_sort_wrapper {
+    /*position: relative;*/
+    margin-right: -5px;
+}
+
+.DataTables_sort_icon {
+    /*position: absolute;*/
+    top: 0;
+    right: 0;
+}
+.dataTables_info,
+.dataTables_length {
+    float: left;
+}
+.dataTables_filter,
+.dataTables_paginate {
+    float: right;
+}
+.dataTables_length select{
+    display: inline;
+    width: 60px;
+}
+.table thead:first-child tr th, .table thead:first-child tr td {
+    border-top: 1px solid #DDD;
+}
+/* feat: do not display application until angular is running */
+body.nojs div.wrapper {
+    display: none;
+}
+
+/* feat: before angular is ready, display loading animation */
+body.nojs div.initializing-panel {
+    display: block;
+    background: url(../img/ajax-loader.gif) center center no-repeat;
+    position:absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+}

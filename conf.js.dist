@@ -1,0 +1,7 @@
+module.exports = {
+    google: {
+        clientId: ''
+      , clientSecret: ''
+    },
+    mongodb: ''
+};

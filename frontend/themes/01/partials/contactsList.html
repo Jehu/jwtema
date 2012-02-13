@@ -1,0 +1,26 @@
+<table id="table-contacts" class="table">
+    <thead>
+        <tr>
+            <th ng:bind="'Name'|i18n"></th>
+            <th ng:bind="'Phone'|i18n"></th>
+            <th ng:bind="'EMail'|i18n"></th>
+            <th ng:bind="'Assembly'|i18n"></th>
+            <th ng:bind="'Note'|i18n"></th>
+            <th ng:bind="'Active'|i18n"></th>
+            <th ng:bind="'Action'|i18n"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng:repeat="contact in contacts" ng:class-even="even" ng:class-odd="odd">
+            <td>{{contact.name}}</td>
+            <td>{{contact.phone}}</td>
+            <td>{{contact.email}}</td>
+            <td>{{contact.assembly}}</td>
+            <td>{{contact.note}}</td>
+            <td>{{contact.active}}</td>
+            <td class="center">
+                <button class="btn" ng:click="editContact(contact)">{{'edit'|i18n}}</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

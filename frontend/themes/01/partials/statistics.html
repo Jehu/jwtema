@@ -1,0 +1,33 @@
+<h2>{{'Some facts'|i18n}}</h2>
+<table class="table table-bordered table-striped">
+    <tbody>
+        <tr>
+            <th>{{'Total count of territories'|i18n}}</th>
+            <td>{{totalCount}}</td>
+        </tr>
+        <tr>
+            <th>{{'in the box'|i18n}}</th>
+            <td>{{inTheBox}}</td>
+        </tr>
+        <tr>
+            <th>{{'given'|i18n}}</th>
+            <td>{{given}}</th>
+        </tr>
+        <tr>
+            <th>
+                {{'not processed since'|i18n}} <select name="month" ng:change="getNotProcessedSinceCount()" class="span2">
+                    <option>3</option>
+                    <option>6</option>
+                    <option>9</option>
+                    <option>12</option>
+                    <option>15</option>
+                    <option>18</option>
+                    <option>21</option>
+                    <option>24</option>
+                </select>
+                {{'month'|i18n}}
+            </th>
+            <td>{{notProcessedSince}}</td>
+        </tr>
+    </tbody>
+</table>
