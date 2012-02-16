@@ -2,3 +2,5 @@ conf.js
 .monitor
 pids/*
 frontend/js/custom/*
+node_modules
+.htaccess
