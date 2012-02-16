@@ -10,6 +10,7 @@ var express = require('express')
 
 var app = module.exports = express.createServer();
 everyauth.google
+  .myHostname(conf.baseurl)
   .appId(conf.google.clientId)
   .appSecret(conf.google.clientSecret)
   .scope('https://www.googleapis.com/auth/userinfo.email')
@@ -48,7 +49,7 @@ app.configure('production', function(){
 // Routes
 app.get('/', function(req, res) {
   if(!req.loggedIn) {
-    res.redirect('/login');
+    res.redirect(conf.baseurl + '/login');
     return;
   }
   res.render('index.html', {
@@ -385,7 +386,7 @@ everyauth.helpExpress(app);
 
 // Only listen on $ node app.js
 if (!module.parent) {
-  app.listen(3000);
+  app.listen(2334);
   console.log("Express server listening on port %d", app.address().port);
 }
 
