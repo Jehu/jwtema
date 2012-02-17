@@ -330,7 +330,7 @@ var territoryGetBack = function(req, cb) {
     models.Territory.update(
         { _id: req.params.id },
         {
-            'contact': (updatedData.contact.length) ? updatedData.contact._id : null,
+            'contact': (updatedData.contact && updatedData.contact._id) ? updatedData.contact._id : null,
             'status_changed_at': req.body.status_changed_at,
             'last_processed_at': req.body.last_processed_at
         },
