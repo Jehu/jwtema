@@ -606,19 +606,16 @@ function StatisticsCtrl($xhr, $location, ResTerritories) {
     }
 
     this.getNotProcessedSinceCount = function() {
-        if(!parseInt(self.month) || parseInt(self.month) > 36  || parseInt(self.month == 'NaN') || self.month == '') {
-            self.month = 36
-        }
         var cnt = 0;
         var today = Date.today();
         var past = Date.today().add(- parseInt(self.month)).months();
         angular.forEach(self.territories, function(territory){
-            //var lastProcessed = Date.parseExact('2011-06-10T23:00:00.000Z','yyyy-MM-ddTHH:mm:ss.000Z');
             var lastProcessed = territory.last_processed_at;
-            if(lastProcessed.compareTo(past) == -1) { // -1 => älter als angegeben
+            if(lastProcessed.compareTo(past) === -1 ) { // -1 => älter als angegeben
                 cnt++;
             }
         });
+        self.notProcessedSince = cnt;
         return cnt;
     }
 
