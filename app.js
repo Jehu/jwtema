@@ -6,6 +6,8 @@ var express = require('express')
    ,users = require('./lib/users')
    ,util = require('util')
    ,models = require('./models')
+   ,RedisStore = require('connect-redis')(express)
+   ,port = conf.port
    ;
 
 var app = module.exports = express.createServer();
@@ -29,6 +31,7 @@ app.configure(function(){
   //app.set('view engine', 'ejs');
   app.use(express.bodyParser());
   app.use(express.cookieParser());
+  //app.use(express.session({ secret: conf.session_secret, store: new RedisStore }))
   app.use(express.session({ secret: conf.session_secret }));
   app.use(everyauth.middleware());
   app.use(app.router);
@@ -386,7 +389,7 @@ everyauth.helpExpress(app);
 
 // Only listen on $ node app.js
 if (!module.parent) {
-  app.listen(2334);
+  app.listen(port);
   console.log("Express server listening on port %d", app.address().port);
 }
 
