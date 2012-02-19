@@ -24,7 +24,13 @@ function ContactsListCtrl($xhr,$defer,$location,globalObjects,ResContacts) {
             { "bSearchable": false, "bSortable": false }
         ];
         self.$eval();
-        jQuery('#table-contacts').dataTable( {"bJQueryUI": true, "aoColumns": tblColumns, "bDestroy": true } );
+        jQuery('#table-contacts').dataTable( {
+            "bJQueryUI": true,
+            "aLengthMenu": [[-1, 25, 50, 100], ["All", 25, 50, 100]],
+            //"bPaginate": true,
+            "aoColumns": tblColumns,
+            "bDestroy": true
+        });
     });
 
     self.editContact = function(contact) {
@@ -67,7 +73,7 @@ function ContactEditCtrl($location, globalObjects, ResContacts, ResTerritories) 
     }
 
     self.deleteContact = function(contact) {
-        // FIXME ask user if he want delete this really!
+        // FIXME ask user if he want really delete this!
 
         var hasTerritories = checkHasTerritories(contact, ResTerritories);
         if(Boolean(hasTerritories)) {
@@ -179,7 +185,12 @@ function TerritoriesListCtrl($xhr, $defer, $resource, $location, globalObjects, 
             null,
             { "bSortable": false },
         ];
-        var tblConfig = { "bJQueryUI": true, "aoColumns": tblColumns };
+        var tblConfig = {
+            "bJQueryUI": true,
+            "aLengthMenu": [[-1, 25, 50, 100], ["All", 25, 50, 100]],
+            //"bPaginate": true,
+            "aoColumns": tblColumns
+        };
         //$("select, input:checkbox, input:text, input:password, input:radio, input:file, textarea").uniform();
         jQuery('#table-territories').dataTable(tblConfig);
     });
