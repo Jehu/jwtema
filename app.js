@@ -32,6 +32,7 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.cookieParser());
   app.use(express.session({ secret: conf.session_secret }));
+  //app.use(express.session({ secret: conf.session_secret, store: new RedisStore }));
   app.use(everyauth.middleware());
   app.use(app.router);
   app.use(express.static(__dirname + '/frontend'));
@@ -132,7 +133,7 @@ app.put('/territories/:id', function(req,res) {
     var territory_id = updatedData._id;
     delete(updatedData._id);
 
-    models.Territory.update({ _id: req.params.id }, updatedData, function(err) {
+    models.Territory.update({ _id: territory_id }, updatedData, function(err) {
         if(err) {
             res.send({'success':false, 'message': err.message});
         }
