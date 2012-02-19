@@ -31,7 +31,6 @@ app.configure(function(){
   //app.set('view engine', 'ejs');
   app.use(express.bodyParser());
   app.use(express.cookieParser());
-  //app.use(express.session({ secret: conf.session_secret, store: new RedisStore }))
   app.use(express.session({ secret: conf.session_secret }));
   app.use(everyauth.middleware());
   app.use(app.router);
