@@ -132,8 +132,10 @@ app.put('/territories/:id', function(req,res) {
     var updatedData = req.body;
     var territory_id = updatedData._id;
     delete(updatedData._id);
+    delete(updatedData.contact);
+    delete(updatedData.history);
 
-    models.Territory.update({ _id: territory_id }, updatedData, function(err) {
+    models.Territory.update({ _id: req.params.id }, updatedData, function(err) {
         if(err) {
             res.send({'success':false, 'message': err.message});
         }
