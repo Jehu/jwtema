@@ -50,7 +50,7 @@
             <td><span ng:hide="territory.contact.name">-- {{'in the box'|i18n}} --</span>{{territory.contact.name}}</td>
             <td>{{territory.status_changed_at|i18nDate}}</td>
             <td>{{territory.last_processed_at|i18nDate}}</td>
-            <td>
+            <td style="width: 200px;">
                 <button class="btn btn-primary" name="{{'Info'|i18n}}" ng:click="showTerritoryInfo(territory)" my:dialog="show('territory-info',{modal:true})">{{'info'|i18n}}</button>
                 <button class="btn" ng:click="editTerritory(territory)">{{'edit'|i18n}}</button>
                 <button class="btn btn-success" ng:show="territory.contact.name" ng:click="processed(territory)" ng:bind="'processed'|i18n"></button>

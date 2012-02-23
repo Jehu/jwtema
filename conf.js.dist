@@ -5,4 +5,5 @@ module.exports = {
     }
     ,mongodb: ''
     ,session_secret: ''
+    ,port: '3000'
 };

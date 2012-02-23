@@ -6,6 +6,8 @@ var express = require('express')
    ,users = require('./lib/users')
    ,util = require('util')
    ,models = require('./models')
+   ,RedisStore = require('connect-redis')(express)
+   ,port = conf.port
    ;
 
 var app = module.exports = express.createServer();
@@ -30,6 +32,7 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.cookieParser());
   app.use(express.session({ secret: conf.session_secret }));
+  //app.use(express.session({ secret: conf.session_secret, store: new RedisStore }));
   app.use(everyauth.middleware());
   app.use(app.router);
   app.use(express.static(__dirname + '/frontend'));
@@ -129,6 +132,8 @@ app.put('/territories/:id', function(req,res) {
     var updatedData = req.body;
     var territory_id = updatedData._id;
     delete(updatedData._id);
+    delete(updatedData.contact);
+    delete(updatedData.history);
 
     models.Territory.update({ _id: req.params.id }, updatedData, function(err) {
         if(err) {
@@ -330,7 +335,7 @@ var territoryGetBack = function(req, cb) {
     models.Territory.update(
         { _id: req.params.id },
         {
-            'contact': (updatedData.contact.length) ? updatedData.contact._id : null,
+            'contact': (updatedData.contact && updatedData.contact._id) ? updatedData.contact._id : null,
             'status_changed_at': req.body.status_changed_at,
             'last_processed_at': req.body.last_processed_at
         },
@@ -386,7 +391,7 @@ everyauth.helpExpress(app);
 
 // Only listen on $ node app.js
 if (!module.parent) {
-  app.listen(2334);
+  app.listen(port);
   console.log("Express server listening on port %d", app.address().port);
 }
 
