@@ -604,7 +604,7 @@ function StatisticsCtrl($xhr, $location, ResTerritories) {
         angular.forEach(self.territories, function(territory){
             //var lastProcessed = Date.parseExact('2011-06-10T23:00:00.000Z','yyyy-MM-ddTHH:mm:ss.000Z');
             var lastProcessed = territory.last_processed_at;
-            if(lastProcessed.compareTo(past) == -1) { // -1 => älter als angegeben
+            if(!lastProcessed || lastProcessed.compareTo(past) == -1) { // -1 => älter als angegeben
                 cnt++;
             }
         });
@@ -657,7 +657,7 @@ function getHistory(history, type, last_only) {
 }
 
 /**
- * Removes duplicates in the array 
+ * Removes duplicates in the array
  * @author Johan Känngård, http://dev.kanngard.net
  */
 function uniqueArray(a) {
