@@ -22,7 +22,7 @@ schema.Territory = new Schema({
   streets: [schema.Street],
   donotvisit: [schema.DoNotVisit],
   history: [schema.TerritoryHistory],
-  deleted: { type: Boolean, 'default': true },
+  deleted: { type: Boolean, 'default': false },
   user_id: String
 });
 
