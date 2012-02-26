@@ -26,8 +26,8 @@ function ContactsListCtrl($xhr,$defer,$location,globalObjects,ResContacts) {
         self.$eval();
         jQuery('#table-contacts').dataTable( {
             "bJQueryUI": true,
-            "aLengthMenu": [[-1, 25, 50, 100], ["All", 25, 50, 100]],
-            //"bPaginate": true,
+            //"aLengthMenu": [[-1, 25, 50, 100], ["All", 25, 50, 100]],
+            "bPaginate": false,
             "aoColumns": tblColumns,
             "bDestroy": true
         });
@@ -187,8 +187,8 @@ function TerritoriesListCtrl($xhr, $defer, $resource, $location, globalObjects, 
         ];
         var tblConfig = {
             "bJQueryUI": true,
-            "aLengthMenu": [[-1, 25, 50, 100], ["All", 25, 50, 100]],
-            //"bPaginate": true,
+            //"aLengthMenu": [[-1, 25, 50, 100], ["All", 25, 50, 100]],
+            "bPaginate": false,
             "aoColumns": tblColumns
         };
         //$("select, input:checkbox, input:text, input:password, input:radio, input:file, textarea").uniform();
