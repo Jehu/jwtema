@@ -434,7 +434,8 @@ function TerritoryGiveCtrl($xhr, $resource, $location, globalObjects, ResTerrito
             );
         }
         else {
-            jQuery.jGrowl(angular.filter.i18n('The selected publisher does not exist.'), { theme: 'error' });
+            //jQuery.jGrowl(angular.filter.i18n('The selected publisher does not exist.'), { theme: 'error' });
+            alert(angular.filter.i18n('The selected publisher does not exist.'));
         }
     }
 
@@ -531,7 +532,7 @@ function TerritoryProcessedCtrl($xhr, $location, globalObjects) {
     var self = this;
     self.territory = globalObjects.selectedTerritory;
 
-    self.$root.pagename = angular.filter.i18n('Get back');
+    self.$root.pagename = angular.filter.i18n('Processed');
     self.$root.tagline = self.territory.ident;
 
     var now = new Date();
@@ -579,6 +580,9 @@ function StatisticsCtrl($xhr, $location, ResTerritories) {
     self.inTheBox = 0;
     self.given = 0;
     self.notProcessedSince = 0;
+    self.notProcessedSinceButGiven = 0;
+    self.notProcessedInTheBox = 0;
+    self.overdueAndGivenTerritories = [];
     self.$root.pagename = angular.filter.i18n('Statistics');
 
     var getTotalCount = function(territories) {
@@ -607,15 +611,25 @@ function StatisticsCtrl($xhr, $location, ResTerritories) {
 
     this.getNotProcessedSinceCount = function() {
         var cnt = 0;
+        var givenCnt = 0;
         var today = Date.today();
         var past = Date.today().add(- parseInt(self.month)).months();
+        self.overdueAndGivenTerritories = [];
         angular.forEach(self.territories, function(territory){
             var lastProcessed = territory.last_processed_at;
             if(!lastProcessed || lastProcessed.compareTo(past) === -1) { // -1 => älter als angegeben
                 cnt++;
+                    console.log(territory.city, territory.status_changed_at.compareTo(past));
+                // given but not processed since...
+                if(territory.city && territory.contact && (territory.status_changed_at.compareTo(past) === -1) ) {
+                    givenCnt++;
+                    self.overdueAndGivenTerritories.push(territory);
+                }
             }
         });
         self.notProcessedSince = cnt;
+        self.notProcessedSinceButGiven = givenCnt;
+        self.notProcessedInTheBox = cnt - givenCnt;
         return cnt;
     }
 

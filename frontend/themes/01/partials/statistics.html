@@ -1,3 +1,28 @@
+<div style="display: none;">
+    <div id="not-processed-info" style="width:400px;">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th ng:bind="'Territory No.'|i18n"></th>
+                    <th ng:bind="'City'|i18n"></th>
+                    <th ng:bind="'Given to'|i18n"></th>
+                    <th ng:bind="'since'|i18n"></th>
+                    <th ng:bind="'last processed at'|i18n"></th>
+                <tr>
+            </thead>
+            <tbody>
+                <tr ng:repeat="territory in overdueAndGivenTerritories" ng:class-even="even" ng:class-odd="odd">
+                    <td>{{territory.ident}}</td>
+                    <td>{{territory.city}}</td>
+                    <td>{{territory.contact.name}}</td>
+                    <td>{{territory.status_changed_at|i18nDate}}</td>
+                    <td>{{territory.last_processed_at|i18nDate}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 <h2>{{'Some facts'|i18n}}</h2>
 <table class="table table-bordered table-striped">
     <tbody>
@@ -26,8 +51,10 @@
                     <option>24</option>
                 </select>
                 {{'month'|i18n}}
+                <button class="btn" name="{{'%s overdue and given'|i18n:notProcessedSinceButGiven}}" my:dialog="show('not-processed-info',{modal:true, width:800})">{{'%s overdue and given'|i18n:notProcessedSinceButGiven}}</button>
+                
             </th>
-            <td>{{notProcessedSince}}</td>
+            <td><span title="{{'summary'|i18n}}">{{notProcessedSince}} / <span title="{{'in the box'|i18n}}">{{notProcessedInTheBox}}</span></td>
         </tr>
     </tbody>
 </table>
