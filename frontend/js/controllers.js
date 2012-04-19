@@ -619,7 +619,6 @@ function StatisticsCtrl($xhr, $location, ResTerritories) {
             var lastProcessed = territory.last_processed_at;
             if(!lastProcessed || lastProcessed.compareTo(past) === -1) { // -1 => älter als angegeben
                 cnt++;
-                    console.log(territory.city, territory.status_changed_at.compareTo(past));
                 // given but not processed since...
                 if(territory.city && territory.contact && (territory.status_changed_at.compareTo(past) === -1) ) {
                     givenCnt++;
