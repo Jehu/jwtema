@@ -75,6 +75,6 @@ lang = {
     ,'given':'ausgegeben'
     ,'not processed since':'nicht bearbeitet seit'
     ,'month':'Monaten'
-    ,'%s overdue and given':'%s überfällig und ausgegebenen'
+    ,'%s overdue and given':'%s überfällig und ausgegeben'
     ,'summary':'insgesamt'
 }
