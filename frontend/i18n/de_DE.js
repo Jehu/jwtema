@@ -6,6 +6,7 @@ lang = {
     ,'Link': 'Link'
     ,'last processed at': 'zuletzt bearbeitet'
     ,'processed':'bearbeitet'
+    ,'Processed':'Bearbeitet'
     ,'Note':'Notiz'
     ,'Language':'Sprache'
     ,'Country':'Land'
@@ -74,4 +75,6 @@ lang = {
     ,'given':'ausgegeben'
     ,'not processed since':'nicht bearbeitet seit'
     ,'month':'Monaten'
+    ,'%s overdue and given':'%s überfällig und ausgegebenen'
+    ,'summary':'insgesamt'
 }
