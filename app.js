@@ -11,6 +11,18 @@ var express = require('express')
    ;
 
 var app = module.exports = express.createServer();
+
+//everyauth.everymodule.userPkey('_id');
+everyauth.everymodule.findUserById( function (userId, callback) {
+    models.User.findOne({ email: userId }, function(err, doc) {
+        if(err) {
+            console.log(err);
+            callback(err,null);
+        }
+        callback(err, doc.toObject());
+    });
+});
+
 everyauth.google
   .myHostname(conf.baseurl)
   .appId(conf.google.clientId)
@@ -36,6 +48,7 @@ app.configure(function(){
   app.use(everyauth.middleware());
   app.use(app.router);
   app.use(express.static(__dirname + '/frontend'));
+  everyauth.helpExpress(app);
 });
 
 app.register('.html', require('ejs'));
